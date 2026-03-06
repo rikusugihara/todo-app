@@ -11,6 +11,17 @@ function addTask() {
 
     const li = document.createElement("li");
 
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    checkbox.addEventListener("change", function() {
+        if(checkbox.checked) {
+            span.style.textDecoration = "line-through";
+        } else {
+            span.style.textDecoration = "none";
+        }
+    });
+
     const span = document.createElement("span");
     span.textContent = taskText;
 
@@ -21,6 +32,7 @@ function addTask() {
         li.remove();
     });
 
+    li.appendChild(checkbox);
     li.appendChild(span);
     li.appendChild(deleteBtn);
 
