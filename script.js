@@ -10,7 +10,19 @@ function addTask() {
     }
 
     const li = document.createElement("li");
-    li.textContent = taskText;
+
+    const span = document.createElement("span");
+    span.textContent = taskText;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "削除";
+
+    deleteBtn.addEventListener("click", function() {
+        li.remove();
+    });
+
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
 
     taskList.appendChild(li);
     taskInput.value = "";
