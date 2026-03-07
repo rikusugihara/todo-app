@@ -1,6 +1,7 @@
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
+const taskCount = document.getElementById("taskCount");
 
 const modal = document.getElementById("modal");
 const modalText = document.getElementById("modalText");
@@ -16,6 +17,7 @@ function saveTasks() {
 }
 
 function renderTasks() {
+    taskCount.textContent = `タスク ${tasks.length}件`;
     taskList.innerHTML = "";
 
     tasks.forEach(function(task, index) {

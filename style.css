@@ -138,3 +138,10 @@ button:hover {
 .clickable-task:hover {
     opacity: 0.7;
 }
+
+#taskCount {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
