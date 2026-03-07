@@ -8,9 +8,13 @@ const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
 const editModalTask = document.getElementById("editModalTask");
 
+const completedSectionHeader = document.getElementById("completedSectionHeader");
+
 let tasks = [];
 
 let currentModalTaskIndex = null;
+
+let showCompletedTasks = true;
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -26,14 +30,23 @@ function renderTasks() {
 
     taskList.innerHTML = "";
 
+    const MAX_LENGTH = 10;
+    let completedCount = 0;
+
     tasks.forEach(function(task, index) {
+        if(task.completed) {
+            completedCount++;
+        }
+
+        if(task.completed && !showCompletedTasks) {
+            return;
+        }
+
         const li = document.createElement("li");
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
-
-        const MAX_LENGTH = 10;
 
         const span = document.createElement("span");
 
@@ -49,15 +62,10 @@ function renderTasks() {
 
             span.addEventListener("click", function() {
                 modalText.textContent = task.text;
+                currentModalTaskIndex = index;
                 modal.classList.add("show");
             });
         }
-
-        span.addEventListener("click", function() {
-            modalText.textContent = task.text;
-            currentModalTaskIndex = index;
-            modal.classList.add("show");
-        });
 
         if(task.completed) {
             span.style.textDecoration = "line-through";
@@ -85,6 +93,18 @@ function renderTasks() {
 
         taskList.appendChild(li);
     });
+
+    if(completedCount > 0) {
+        completedSectionHeader.style.display = "block";
+
+        if(showCompletedTasks) {
+            completedSectionHeader.textContent = `完了タスク ▼ (${completedCount})`;
+        } else {
+            completedSectionHeader.textContent = `完了タスク ▶ (${completedCount})`;
+        } 
+    } else {
+        completedSectionHeader.style.display = "none";
+    }
 }
 
 function addTask() {
@@ -105,6 +125,41 @@ function addTask() {
     taskInput.value = "";
 }
 
+function loadTasks() {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if(savedTasks) {
+        tasks = JSON.parse(savedTasks);
+    }
+}
+
+addBtn.addEventListener("click", addTask);
+
+taskInput.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        event.preventDefault();
+        addTask();
+    }
+});
+
+closeModal.addEventListener("click", function() {
+    modal.classList.remove("show");
+});
+
+editModalTask.addEventListener("click", function() {
+    if(currentModalTaskIndex === null) {
+        return;
+    }
+
+    editTask(currentModalTaskIndex);
+    modal.classList.remove("show");
+});
+
+completedSectionHeader.addEventListener("click", function() {
+    showCompletedTasks = !showCompletedTasks;
+    renderTasks();
+});
+
 function editTask(index) {
     const currentText = tasks[index].text;
 
@@ -124,36 +179,6 @@ function editTask(index) {
     saveTasks();
     renderTasks();
 }
-
-function loadTasks() {
-    const savedTasks = localStorage.getItem("tasks");
-
-    if(savedTasks) {
-        tasks = JSON.parse(savedTasks);
-    }
-}
-
-addBtn.addEventListener("click", addTask);
-
-taskInput.addEventListener("keypress", function(event) {
-    if(event.key === "Enter") {
-        event.preventDefault();
-        addTask();
-    }
-});
-
-editModalTask.addEventListener("click", function() {
-    if(currentModalTaskIndex === null) {
-        return;
-    }
-
-    editTask(currentModalTaskIndex);
-    modal.classList.remove("show");
-})
-
-closeModal.addEventListener("click", function() {
-    modal.classList.remove("show");
-});
 
 loadTasks();
 renderTasks();

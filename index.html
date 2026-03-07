@@ -11,9 +11,19 @@
         <h1>ToDoアプリ</h1>
         <p id="taskCount">タスク 0件 | 未完了 0件</p>
 
+        <div class="top-actions">
+            <button id="deleteAllBtn">すべて削除</button>
+            <button id="deleteCompletedBtn">完了タスクを削除</button>
+            <button id="toggleThemeBtn">ダークモード</button>
+        </div>
+
         <div class="input-area">
             <input id="taskInput" type="text" placeholder="タスクを入力">
             <button id="addBtn">追加</button>
+        </div>
+
+        <div id="completedSectionHeader" class="completed-header">
+            完了タスク ▼
         </div>
 
         <ul id="taskList"></ul>
