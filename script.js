@@ -59,10 +59,6 @@ function renderTasks() {
     });
 }
 
-closeModal.addEventListener("click", function() {
-    modal.classList.remove("show");
-});
-
 function addTask() {
     const taskText = taskInput.value.trim();
 
@@ -90,6 +86,17 @@ function loadTasks() {
 }
 
 addBtn.addEventListener("click", addTask);
+
+taskInput.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        event.preventDefault();
+        addTask();
+    }
+});
+
+closeModal.addEventListener("click", function() {
+    modal.classList.remove("show");
+});
 
 loadTasks();
 renderTasks();
