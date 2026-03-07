@@ -2,6 +2,10 @@ const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
 
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modalText");
+const closeModal = document.getElementById("closeModal");
+
 let tasks = [];
 
 function saveTasks() {
@@ -20,6 +24,12 @@ function renderTasks() {
 
         const span = document.createElement("span");
         span.textContent = task.text;
+        span.title = task.text;
+
+        span.addEventListener("click", function() {
+            modalText.textContent = task.text;
+            modal.classList.add("show");
+        });
 
         if(task.completed) {
             span.style.textDecoration = "line-through";
@@ -27,6 +37,7 @@ function renderTasks() {
 
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "削除";
+        deleteBtn.classList.add("delete-btn");
 
         checkbox.addEventListener("change", function() {
             tasks[index].completed = checkbox.checked;
@@ -47,6 +58,10 @@ function renderTasks() {
         taskList.appendChild(li);
     });
 }
+
+closeModal.addEventListener("click", function() {
+    modal.classList.remove("show");
+});
 
 function addTask() {
     const taskText = taskInput.value.trim();
