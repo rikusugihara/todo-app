@@ -198,3 +198,36 @@ button:hover {
     color: #333;
     text-align: left;
 }
+
+body.dark {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+body.dark h1,
+body.dark #taskCount,
+body.dark .completed-header {
+    color: #f9fafb;
+}
+
+body.dark #taskList li,
+body.dark #completedTaskList li {
+    background-color: #1f2937;
+    box-shadow: none;
+}
+
+body.dark #taskList span,
+body.dark #completedTaskList span {
+    color: #f9fafb;
+}
+
+body.dark input {
+    background-color: #1f2937;
+    color: #f9fafb;
+    border: 1px solid #374151;
+}
+
+body.dark .modal-content {
+    background-color: #1f2937;
+    color: #f9fafb;
+}

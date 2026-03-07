@@ -9,6 +9,7 @@ const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
 const editModalTask = document.getElementById("editModalTask");
 
+const toggleThemeBtn = document.getElementById("toggleThemeBtn");
 const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
 const completedSectionHeader = document.getElementById("completedSectionHeader");
@@ -18,6 +19,8 @@ let tasks = [];
 let currentModalTaskIndex = null;
 
 let showCompletedTasks = true;
+
+let isDarkMode = false;
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -132,6 +135,22 @@ function addTask() {
     taskInput.value = "";
 }
 
+function saveTheme() {
+    localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem("darkMode");
+
+    if(saveTheme) {
+        isDarkMode = JSON.parse(savedTheme);
+    }
+
+    if(isDarkMode) {
+        document.body.classList.add("dark");
+    }
+}
+
 function editTask(index) {
     const currentText = tasks[index].text;
 
@@ -211,5 +230,12 @@ deleteAllBtn.addEventListener("click", function() {
     renderTasks();
 });
 
+toggleThemeBtn.addEventListener("click", function() {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle("dark");
+    saveTheme();
+});
+
 loadTasks();
+loadTheme();
 renderTasks();
