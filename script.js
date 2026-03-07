@@ -22,9 +22,25 @@ function renderTasks() {
         checkbox.type = "checkbox";
         checkbox.checked = task.completed;
 
+        const MAX_LENGTH = 10;
+
         const span = document.createElement("span");
-        span.textContent = task.text;
-        span.title = task.text;
+
+        if(task.text.length <= MAX_LENGTH) {
+            span.textContent = task.text;
+
+            span.addEventListener("click", function() {
+                editTask(index);
+            });
+        } else {
+            span.textContent = task.text.slice(0, MAX_LENGTH) + "...";
+            span.classList.add("clickable-task");
+
+            span.addEventListener("click", function() {
+                modalText.textContent = task.text;
+                modal.classList.add("show");
+            });
+        }
 
         span.addEventListener("click", function() {
             modalText.textContent = task.text;
@@ -75,6 +91,26 @@ function addTask() {
     renderTasks();
 
     taskInput.value = "";
+}
+
+function editTask(index) {
+    const currentText = tasks[index].text;
+
+    const newText = prompt("タスクを編集してください", currentText);
+
+    if(newText === null) {
+        return;
+    }
+
+    const trimmedText = newText.trim();
+
+    if(trimmedText === "") {
+        return;
+    }
+
+    tasks[index].text = trimmedText;
+    saveTasks();
+    renderTasks();
 }
 
 function loadTasks() {
