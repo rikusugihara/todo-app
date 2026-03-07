@@ -1,6 +1,7 @@
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
+const completedTaskList = document.getElementById("completedTaskList");
 const taskCount = document.getElementById("taskCount");
 
 const modal = document.getElementById("modal");
@@ -29,6 +30,7 @@ function renderTasks() {
     taskCount.innerHTML = `タスク ${totalTasks}件 | 未完了 <b>${incompleteTasks}</b>件`;
 
     taskList.innerHTML = "";
+    completedTaskList.innerHTML = "";
 
     const MAX_LENGTH = 10;
     let completedCount = 0;
@@ -91,17 +93,20 @@ function renderTasks() {
         li.appendChild(span);
         li.appendChild(deleteBtn);
 
-        taskList.appendChild(li);
+        if(task.completed) {
+            if(showCompletedTasks) {
+                completedTaskList.appendChild(li);
+            }
+        } else {
+            taskList.appendChild(li);
+        }
     });
 
     if(completedCount > 0) {
         completedSectionHeader.style.display = "block";
-
-        if(showCompletedTasks) {
-            completedSectionHeader.textContent = `完了タスク ▼ (${completedCount})`;
-        } else {
-            completedSectionHeader.textContent = `完了タスク ▶ (${completedCount})`;
-        } 
+        completedSectionHeader.textContent = showCompletedTasks
+            ? `完了タスク ▼ (${completedCount})`
+            : `完了タスク ▶ (${completedCount})`;
     } else {
         completedSectionHeader.style.display = "none";
     }

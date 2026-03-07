@@ -167,3 +167,34 @@ button:hover {
     font-weight: bold;
     cursor: pointer;
 }
+
+#completedTaskList {
+    list-style: none;
+    padding: 0;
+    margin: 16px auto 0;
+    max-width: 420px;
+}
+
+#completedTaskList li {
+    background-color: white;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#completedTaskList input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+#completedTaskList span {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
