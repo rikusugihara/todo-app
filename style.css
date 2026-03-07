@@ -124,6 +124,11 @@ button:hover {
 
 .modal-content button {
     margin-top: 20px;
+    margin-right: 8px;
+}
+
+.modal-content button:last-child {
+    margin-right: 0;
 }
 
 .clickable-task {

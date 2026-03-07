@@ -5,8 +5,11 @@ const taskList = document.getElementById("taskList");
 const modal = document.getElementById("modal");
 const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
+const editModalTask = document.getElementById("editModalTask");
 
 let tasks = [];
+
+let currentModalTaskIndex = null;
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -44,6 +47,7 @@ function renderTasks() {
 
         span.addEventListener("click", function() {
             modalText.textContent = task.text;
+            currentModalTaskIndex = index;
             modal.classList.add("show");
         });
 
@@ -129,6 +133,15 @@ taskInput.addEventListener("keypress", function(event) {
         addTask();
     }
 });
+
+editModalTask.addEventListener("click", function() {
+    if(currentModalTaskIndex === null) {
+        return;
+    }
+
+    editTask(currentModalTaskIndex);
+    modal.classList.remove("show");
+})
 
 closeModal.addEventListener("click", function() {
     modal.classList.remove("show");
