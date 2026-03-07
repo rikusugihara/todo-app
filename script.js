@@ -9,6 +9,7 @@ const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
 const editModalTask = document.getElementById("editModalTask");
 
+const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
 const completedSectionHeader = document.getElementById("completedSectionHeader");
 
 let tasks = [];
@@ -130,6 +131,26 @@ function addTask() {
     taskInput.value = "";
 }
 
+function editTask(index) {
+    const currentText = tasks[index].text;
+
+    const newText = prompt("タスクを編集してください", currentText);
+
+    if(newText === null) {
+        return;
+    }
+
+    const trimmedText = newText.trim();
+
+    if(trimmedText === "") {
+        return;
+    }
+
+    tasks[index].text = trimmedText;
+    saveTasks();
+    renderTasks();
+}
+
 function loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
 
@@ -165,25 +186,17 @@ completedSectionHeader.addEventListener("click", function() {
     renderTasks();
 });
 
-function editTask(index) {
-    const currentText = tasks[index].text;
+deleteCompletedBtn.addEventListener("click", function() {
+    const confirmed = confirm("完了タスクをすべて削除しますか？");
 
-    const newText = prompt("タスクを編集してください", currentText);
-
-    if(newText === null) {
+    if(!confirmed) {
         return;
     }
 
-    const trimmedText = newText.trim();
-
-    if(trimmedText === "") {
-        return;
-    }
-
-    tasks[index].text = trimmedText;
+    tasks = tasks.filter(task => !task.completed);
     saveTasks();
     renderTasks();
-}
+});
 
 loadTasks();
 renderTasks();
