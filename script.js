@@ -19,7 +19,11 @@ function saveTasks() {
 function renderTasks() {
     tasks.sort((a, b) => a.completed - b.completed);
 
-    taskCount.textContent = `タスク ${tasks.length}件`;
+    const totalTasks = tasks.length;
+    const incompleteTasks = tasks.filter(task => !task.completed).length;
+
+    taskCount.innerHTML = `タスク ${totalTasks}件 | 未完了 <b>${incompleteTasks}</b>件`;
+
     taskList.innerHTML = "";
 
     tasks.forEach(function(task, index) {
