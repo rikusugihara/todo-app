@@ -17,6 +17,8 @@ function saveTasks() {
 }
 
 function renderTasks() {
+    tasks.sort((a, b) => a.completed - b.completed);
+
     taskCount.textContent = `タスク ${tasks.length}件`;
     taskList.innerHTML = "";
 
