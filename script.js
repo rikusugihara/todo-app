@@ -9,6 +9,7 @@ const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
 const editModalTask = document.getElementById("editModalTask");
 
+const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
 const completedSectionHeader = document.getElementById("completedSectionHeader");
 
@@ -194,6 +195,18 @@ deleteCompletedBtn.addEventListener("click", function() {
     }
 
     tasks = tasks.filter(task => !task.completed);
+    saveTasks();
+    renderTasks();
+});
+
+deleteAllBtn.addEventListener("click", function() {
+    const confirmed = confirm("すべてのタスクを削除しますか？");
+
+    if(!confirmed) {
+        return;
+    }
+
+    tasks = [];
     saveTasks();
     renderTasks();
 });
