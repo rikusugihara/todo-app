@@ -14,9 +14,9 @@ const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
 const completedSectionHeader = document.getElementById("completedSectionHeader");
 
-const filterAllBtn = document.getElementById("filter-area");
-const filterActiveBtn = document.getElementById("filterActive");
-const filterCompletedBtn = document.getElementById("filterCompleted");
+const filterAllBtn = document.getElementById("filterAll");
+const filterActiveBtn = document.getElementById("filterActiveBtn");
+const filterCompletedBtn = document.getElementById("filterCompletedBtn");
 
 const searchInput = document.getElementById("searchInput");
 
@@ -40,6 +40,8 @@ function saveTasks() {
 
 function renderTasks() {
     tasks.sort((a, b) => a.completed - b.completed);
+
+    updateFilterButtons();
 
     const totalTasks = tasks.length;
     const incompleteTasks = tasks.filter(task => !task.completed).length;
@@ -81,8 +83,10 @@ function renderTasks() {
 
         li.draggable = !task.completed;
 
-        li.addEventListener("dragstart", function() {
+        li.addEventListener("dragstart", function(event) {
             draggedTaskIndex = index;
+            event.dataTransfer.setData("text/plain", index);
+            event.dataTransfer.effectAllowed = "move";
         });
 
         li.addEventListener("dragover", function(event) {
@@ -314,6 +318,20 @@ searchInput.addEventListener("input", function() {
     currentSearch = searchInput.value.trim();
     renderTasks();
 });
+
+function updateFilterButtons() {
+    filterAllBtn.classList.remove("active-filter");
+    filterActiveBtn.classList.remove("active-filter");
+    filterCompletedBtn.classList.remove("active-filter");
+
+    if(currentFilter === "all") {
+        filterAllBtn.classList.add("active-filter");
+    } else if(currentFilter === "active") {
+        filterActiveBtn.classList.add("active-filter");
+    } else if(currentFilter === "completed") {
+        filterCompletedBtn.classList.add("active-filter");
+    }
+}
 
 loadTasks();
 loadTheme();

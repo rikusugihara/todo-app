@@ -8,37 +8,42 @@
 </head>
 <body>
     <div class="container">
-        <h1>ToDoアプリ</h1>
-        <p id="taskCount">タスク 0件 | 未完了 0件</p>
+        <header class="hero">
+            <h1>📝 ToDoアプリ</h1>
+            <p class="sub-title">毎日のタスクをすっきり整理</p>
+            <p id="taskCount">タスク 0件 | 未完了 0件</p>
+        </header>
 
-        <div class="top-actions">
-            <button id="deleteAllBtn">すべて削除</button>
-            <button id="deleteCompletedBtn">完了タスクを削除</button>
-            <button id="toggleThemeBtn">ダークモード</button>
-        </div>
-
-        <div class="filter-area">
-            <button id="filter-area">すべて</button>
-            <button id="filterActive">未完了</button>
-            <button id="filterCompleted">完了</button>
+        <div class="input-area">
+            <input id="taskInput" type="text" placeholder="タスクを入力">
+            <button id="addBtn" class="primary-btn">追加</button>
         </div>
 
         <div class="search-area">
             <input type="text" id="searchInput" placeholder="タスクを検索">
         </div>
 
-        <div class="input-area">
-            <input id="taskInput" type="text" placeholder="タスクを入力">
-            <button id="addBtn">追加</button>
+        <div class="filter-area">
+            <button id="filterAll" class="filter-btn active-filter">すべて</button>
+            <button id="filterActiveBtn" class="filter-btn">未完了</button>
+            <button id="filterCompletedBtn" class="filter-btn">完了</button>
         </div>
 
-        <ul id="taskList"></ul>
+        <section class="task-section">
+            <ul id="taskList"></ul>
 
-        <div id="completedSectionHeader" class="completed-header">
-            完了タスク ▼
+            <div id="completedSectionHeader" class="completed-header">
+                完了タスク ▼
+            </div>
+
+            <ul id="completedTaskList"></ul>
+        </section>
+
+        <div class="bottom-actions">
+            <button id="deleteCompletedBtn" class="success-btn">完了タスクを削除</button>
+            <button id="deleteAllBtn" class="danger-btn">すべて削除</button>
+            <button id="toggleThemeBtn" class="secondary-btn">ダークモード</button>
         </div>
-
-        <ul id="completedTaskList"></ul>
     </div>
 
     <div id="modal" class="modal">
