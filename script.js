@@ -1,4 +1,5 @@
 const taskInput = document.getElementById("taskInput");
+const dueDateInput = document.getElementById("dueDateInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
 const completedTaskList = document.getElementById("completedTaskList");
@@ -126,6 +127,9 @@ function renderTasks() {
 
         const span = document.createElement("span");
 
+        const textWrap = document.createElement("div");
+        textWrap.classList.add("task-text-wrap");
+
         if(task.text.length <= MAX_LENGTH) {
             span.textContent = task.text;
 
@@ -164,7 +168,23 @@ function renderTasks() {
         });
 
         li.appendChild(checkbox);
-        li.appendChild(span);
+        textWrap.appendChild(span);
+        if(task.dueDate) {
+            const dueDateText = document.createElement("small");
+            dueDateText.textContent = `期限: ${task.dueDate}`;
+            dueDateText.classList.add("task-due-date");
+
+            const today = new Date().toISOString().split("T")[0];
+
+            if(task.dueDate <= today && !task.completed) {
+                dueDateText.classList.add("overdue");
+            }
+
+            textWrap.appendChild(dueDateText);
+        }
+
+        li.appendChild(textWrap);
+
         li.appendChild(deleteBtn);
 
         if(task.completed) {
@@ -206,13 +226,15 @@ function addTask() {
 
     tasks.push({
         text: taskText,
-        completed: false
+        completed: false,
+        dueDate: dueDateInput.value
     });
 
     saveTasks();
     renderTasks();
 
     taskInput.value = "";
+    dueDateInput.value = "";
 }
 
 function saveTheme() {

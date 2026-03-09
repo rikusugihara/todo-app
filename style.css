@@ -369,6 +369,23 @@ button:active {
     transform: rotate(1deg);
 }
 
+.task-text-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.task-due-date {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 3px;
+}
+
+.task-due-date.overdue {
+    color: #ef4444;
+    font-weight: 600;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
