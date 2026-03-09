@@ -18,6 +18,8 @@ const filterAllBtn = document.getElementById("filter-area");
 const filterActiveBtn = document.getElementById("filterActive");
 const filterCompletedBtn = document.getElementById("filterCompleted");
 
+const searchInput = document.getElementById("searchInput");
+
 let tasks = [];
 
 let currentModalTaskIndex = null;
@@ -29,6 +31,8 @@ let isDarkMode = false;
 let currentFilter = "all";
 
 let draggedTaskIndex = null;
+
+let currentSearch = "";
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -62,6 +66,13 @@ function renderTasks() {
         }
 
         if(currentFilter === "completed" && !task.completed) {
+            return;
+        }
+
+        if(
+            currentSearch !== "" && 
+            !task.text.toLowerCase().includes(currentSearch.toLowerCase())
+        ) {
             return;
         }
 
@@ -295,6 +306,11 @@ filterActiveBtn.addEventListener("click", function() {
 
 filterCompletedBtn.addEventListener("click", function() {
     currentFilter = "completed";
+    renderTasks();
+});
+
+searchInput.addEventListener("input", function() {
+    currentSearch = searchInput.value.trim();
     renderTasks();
 });
 

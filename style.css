@@ -247,3 +247,14 @@ body.dark .modal-content {
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
+
+.search-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-area input {
+    width: 500px;
+    max-width: 100%;
+}
