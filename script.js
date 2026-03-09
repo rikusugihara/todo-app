@@ -336,6 +336,13 @@ searchInput.addEventListener("input", function() {
     renderTasks();
 });
 
+searchInput.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        event.preventDefault();
+        taskInput.focus();
+    }
+});
+
 function updateFilterButtons() {
     filterAllBtn.classList.remove("active-filter");
     filterActiveBtn.classList.remove("active-filter");
