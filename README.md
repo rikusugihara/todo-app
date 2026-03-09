@@ -13,10 +13,10 @@ https://rikusugihara.github.io/todo-app/
 
 ## Screenshot
 
-## Light Mode
+### Light Mode
 ![Todo App](image/screenshot-light.png)
 
-## Dark Mode
+### Dark Mode
 ![Todo App](image/screenshot-dark.png)
 
 ---
