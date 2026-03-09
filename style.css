@@ -258,3 +258,18 @@ body.dark .modal-content {
     width: 500px;
     max-width: 100%;
 }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-enter {
+    animation: fadeInUp 0.25s ease;
+}

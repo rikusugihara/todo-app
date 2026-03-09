@@ -77,6 +77,7 @@ function renderTasks() {
         }
 
         const li = document.createElement("li");
+        li.classList.add("task-enter");
 
         li.draggable = !task.completed;
 
