@@ -4,6 +4,8 @@ const taskList = document.getElementById("taskList");
 const completedTaskList = document.getElementById("completedTaskList");
 const taskCount = document.getElementById("taskCount");
 
+const emptyMessage = document.getElementById("emptyMessage");
+
 const modal = document.getElementById("modal");
 const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
@@ -177,6 +179,12 @@ function renderTasks() {
         }
     } else {
         completedSectionHeader.style.display = "none";
+    }
+
+    if(tasks.length === 0) {
+        emptyMessage.style.display = "block";
+    } else {
+        emptyMessage.style.display = "none";
     }
 }
 

@@ -177,6 +177,7 @@ button:active {
     font-weight: 700;
     cursor: pointer;
     font-size: 14px;
+    opacity: 0.6;
 }
 
 .delete-btn {
@@ -260,7 +261,7 @@ button:active {
 }
 
 .task-enter {
-    animation: fadeInUp 0.25s ease;
+    animation: fadeInUp 0.3s ease;
 }
 
 .secondary-btn {
@@ -336,6 +337,14 @@ button:active {
     margin-top: -4px;
     margin-bottom: 20px;
     font-size: 14px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 15px;
+    margin-top: 30px;
+    line-height: 1.6;
 }
 
 /* ダークモード */
