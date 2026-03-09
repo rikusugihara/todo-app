@@ -49,6 +49,9 @@ function renderTasks() {
     const incompleteTasks = tasks.filter(task => !task.completed).length;
 
     taskCount.innerHTML = `タスク ${totalTasks}件 | 未完了 <b>${incompleteTasks}</b>件`;
+    taskCount.classList.remove("count-update");
+    void taskCount.offsetWidth;
+    taskCount.classList.add("count-update");
 
     taskList.innerHTML = "";
     completedTaskList.innerHTML = "";
@@ -87,8 +90,14 @@ function renderTasks() {
 
         li.addEventListener("dragstart", function(event) {
             draggedTaskIndex = index;
+            li.classList.add("dragging");
             event.dataTransfer.setData("text/plain", index);
             event.dataTransfer.effectAllowed = "move";
+        });
+
+        li.addEventListener("dragend", function() {
+            draggedTaskIndex = null;
+            li.classList.remove("dragging");
         });
 
         li.addEventListener("dragover", function(event) {
