@@ -231,3 +231,11 @@ body.dark .modal-content {
     background-color: #1f2937;
     color: #f9fafb;
 }
+
+#taskList li {
+    cursor: grab;
+}
+
+#taskList li:active {
+    cursor: grabbing;
+}

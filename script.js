@@ -22,6 +22,8 @@ let showCompletedTasks = true;
 
 let isDarkMode = false;
 
+let draggedTaskIndex = null;
+
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -50,6 +52,32 @@ function renderTasks() {
         }
 
         const li = document.createElement("li");
+
+        li.draggable = !task.completed;
+
+        li.addEventListener("dragstart", function() {
+            draggedTaskIndex = index;
+        });
+
+        li.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        });
+
+        li.addEventListener("drop", function() {
+            if(draggedTaskIndex === null || draggedTaskIndex === index) {
+                return;
+            }
+
+            const draggedTask = tasks[draggedTaskIndex];
+
+            tasks.splice(draggedTaskIndex, 1);
+            tasks.splice(index, 0, draggedTask);
+
+            draggedTaskIndex = null;
+
+            saveTasks();
+            renderTasks();
+        });
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -142,7 +170,7 @@ function saveTheme() {
 function loadTheme() {
     const savedTheme = localStorage.getItem("darkMode");
 
-    if(saveTheme) {
+    if(savedTheme) {
         isDarkMode = JSON.parse(savedTheme);
     }
 
