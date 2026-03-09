@@ -265,9 +265,9 @@ function loadTheme() {
 }
 
 function editTask(index) {
-    const currentText = tasks[index].text;
+    const currentTask = tasks[index];
 
-    const newText = prompt("タスクを編集してください", currentText);
+    const newText = prompt("タスクを編集してください", currentTask.text);
 
     if(newText === null) {
         return;
@@ -279,7 +279,18 @@ function editTask(index) {
         return;
     }
 
+    const newDueDate = prompt(
+        "期限を編集してください (YYYY-MM-DD)",
+        currentTask.dueDate || ""
+    );
+
+    if(newDueDate == null) {
+        return;
+    }
+
     tasks[index].text = trimmedText;
+    tasks[index].dueDate = newDueDate.trim() === "" ? null : newDueDate;
+
     saveTasks();
     renderTasks();
 }
