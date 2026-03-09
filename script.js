@@ -14,6 +14,10 @@ const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
 const completedSectionHeader = document.getElementById("completedSectionHeader");
 
+const filterAllBtn = document.getElementById("filter-area");
+const filterActiveBtn = document.getElementById("filterActive");
+const filterCompletedBtn = document.getElementById("filterCompleted");
+
 let tasks = [];
 
 let currentModalTaskIndex = null;
@@ -21,6 +25,8 @@ let currentModalTaskIndex = null;
 let showCompletedTasks = true;
 
 let isDarkMode = false;
+
+let currentFilter = "all";
 
 let draggedTaskIndex = null;
 
@@ -47,7 +53,15 @@ function renderTasks() {
             completedCount++;
         }
 
-        if(task.completed && !showCompletedTasks) {
+        if(task.completed && !showCompletedTasks && currentFilter !== "completed") {
+            return;
+        }
+
+        if(currentFilter === "active" && task.completed) {
+            return;
+        }
+
+        if(currentFilter === "completed" && !task.completed) {
             return;
         }
 
@@ -135,11 +149,16 @@ function renderTasks() {
         }
     });
 
-    if(completedCount > 0) {
+    if(completedCount > 0 && currentFilter !== "active") {
         completedSectionHeader.style.display = "block";
-        completedSectionHeader.textContent = showCompletedTasks
+
+        if(currentFilter == "completed") {
+            completedSectionHeader.textContent = `完了タスク (${completedCount})`;
+        } else {
+            completedSectionHeader.textContent = showCompletedTasks
             ? `完了タスク ▼ (${completedCount})`
             : `完了タスク ▶ (${completedCount})`;
+        }
     } else {
         completedSectionHeader.style.display = "none";
     }
@@ -262,6 +281,21 @@ toggleThemeBtn.addEventListener("click", function() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle("dark");
     saveTheme();
+});
+
+filterAllBtn.addEventListener("click", function() {
+    currentFilter = "all";
+    renderTasks();
+});
+
+filterActiveBtn.addEventListener("click", function() {
+    currentFilter = "active";
+    renderTasks();
+});
+
+filterCompletedBtn.addEventListener("click", function() {
+    currentFilter = "completed";
+    renderTasks();
 });
 
 loadTasks();
