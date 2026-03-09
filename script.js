@@ -13,6 +13,13 @@ const modalText = document.getElementById("modalText");
 const closeModal = document.getElementById("closeModal");
 const editModalTask = document.getElementById("editModalTask");
 
+const editModal = document.getElementById("editModal");
+const editTaskInput = document.getElementById("editTaskInput");
+const editDueDateInput = document.getElementById("editDueDateInput");
+const editPriorityInput = document.getElementById("editPriorityInput");
+const saveEditBtn = document.getElementById("saveEditBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+
 const toggleThemeBtn = document.getElementById("toggleThemeBtn");
 const deleteAllBtn = document.getElementById("deleteAllBtn");
 const deleteCompletedBtn = document.getElementById("deleteCompletedBtn");
@@ -37,6 +44,8 @@ let currentFilter = "all";
 let draggedTaskIndex = null;
 
 let currentSearch = "";
+
+let editingTaskIndex = null;
 
 function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -343,32 +352,14 @@ function loadTheme() {
 function editTask(index) {
     const currentTask = tasks[index];
 
-    const newText = prompt("タスクを編集してください", currentTask.text);
+    editingTaskIndex = index;
 
-    if(newText === null) {
-        return;
-    }
+    editTaskInput.value = currentTask.text;
+    editDueDateInput.value = currentTask.dueDate || "";
+    editPriorityInput.value = currentTask.priority || "medium";
 
-    const trimmedText = newText.trim();
-
-    if(trimmedText === "") {
-        return;
-    }
-
-    const newDueDate = prompt(
-        "期限を編集してください (YYYY-MM-DD)",
-        currentTask.dueDate || ""
-    );
-
-    if(newDueDate == null) {
-        return;
-    }
-
-    tasks[index].text = trimmedText;
-    tasks[index].dueDate = newDueDate.trim() === "" ? null : newDueDate;
-
-    saveTasks();
-    renderTasks();
+    editModal.classList.add("show");
+    editTaskInput.focus();
 }
 
 function loadTasks() {
@@ -399,6 +390,40 @@ editModalTask.addEventListener("click", function() {
 
     editTask(currentModalTaskIndex);
     modal.classList.remove("show");
+});
+
+saveEditBtn.addEventListener("click", function() {
+    if(editingTaskIndex === null) {
+        return;
+    }
+
+    const newText = editTaskInput.value.trim();
+
+    if(newText === "") {
+        return;
+    }
+
+    tasks[editingTaskIndex].text = newText;
+    tasks[editingTaskIndex].dueDate = editDueDateInput.value || null;
+    tasks[editingTaskIndex].priority = editPriorityInput.value;
+
+    saveTasks();
+    renderTasks();
+
+    editModal.classList.remove("show");
+    editingTaskIndex = null;
+});
+
+cancelEditBtn.addEventListener("click", function() {
+    editModal.classList.remove("show");
+    editingTaskIndex = null;
+});
+
+editTaskInput.addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        event.preventDefault();
+        saveEditBtn.click();
+    }
 });
 
 completedSectionHeader.addEventListener("click", function() {

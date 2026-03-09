@@ -441,6 +441,30 @@ button:active {
     border-left: 5px solid #3b82f6;
 }
 
+.edit-modal-content {
+    max-width: 460px;
+}
+
+.modal-title {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 22px;
+    color: #111827;
+}
+
+.edit-modal-content input,
+.edit-modal-content select {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -511,4 +535,14 @@ body.dark #taskList li.task-upcoming,
 body.dark #completedTaskList li.task-upcoming {
     background-color: #1e3a8a;
     border-left: 5px solid #3b82f6;
+}
+
+body.dark .modal-title {
+    color: #f9fafb;
+}
+
+body.dark .edit-modal-content select {
+    background-color: #111827;
+    color: #f9fafb;
+    border: 1px solid #374151;
 }

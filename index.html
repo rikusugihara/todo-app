@@ -64,6 +64,26 @@
         </div>
     </div>
 
+    <div id="editModal" class="modal">
+        <div class="modal-content edit-modal-content">
+            <h2 class="modal-title">タスク編集</h2>
+
+            <input type="text" id="editTaskInput" placeholder="タスク名を入力">
+            <input type="date" id="editDueDateInput">
+
+            <select id="editPriorityInput">
+                <option value="high">高</option>
+                <option value="medium">中</option>
+                <option value="low">低</option>
+            </select>
+
+            <div class="modal-actions">
+                <button id="saveEditBtn" class="primary-btn">保存</button>
+                <button id="cancelEditBtn" class="secondary-btn">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
