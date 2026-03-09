@@ -386,6 +386,15 @@ button:active {
     font-weight: 600;
 }
 
+.task-due-date.soon {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.task-due-date.upcoming {
+    color: #3b82f6;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);

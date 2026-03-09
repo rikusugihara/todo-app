@@ -50,10 +50,18 @@ function createDueDateElement(task) {
     dueDateText.textContent = `期限: ${task.dueDate}`;
     dueDateText.classList.add("task-due-date");
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date();
+    const dueDate = new Date(task.dueDate);
 
-    if(task.dueDate <= today && !task.completed) {
+    const diffTime = dueDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if(diffDays < 0 && !task.completed) {
         dueDateText.classList.add("overdue");
+    } else if(diffDays <= 2) {
+        dueDateText.classList.add("soon");
+    } else if(diffDays <= 7) {
+        dueDateText.classList.add("upcoming");
     }
 
     return dueDateText;
