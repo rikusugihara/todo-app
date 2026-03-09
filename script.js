@@ -52,10 +52,13 @@ function createDueDateElement(task) {
     dueDateText.classList.add("task-due-date");
 
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const dueDate = new Date(task.dueDate);
+    today.setHours(0, 0, 0, 0);
 
     const diffTime = dueDate - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
     if(diffDays < 0 && !task.completed) {
         dueDateText.classList.add("overdue");
@@ -154,6 +157,25 @@ function renderTasks() {
 
         const li = document.createElement("li");
         li.classList.add("task-enter");
+
+        if(task.dueDate && !task.completed) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const dueDate = new Date(task.dueDate);
+            today.setHours(0, 0, 0, 0);
+
+            const diffTime = dueDate - today;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if(diffDays < 0) {
+                li.classList.add("task-overdue");
+            } else if(diffDays <= 2) {
+                li.classList.add("task-soon");
+            } else if(diffDays <= 7) {
+                li.classList.add("task-upcoming");
+            }
+        }
 
         li.draggable = !task.completed;
 

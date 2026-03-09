@@ -423,6 +423,24 @@ button:active {
     flex-shrink: 0;
 }
 
+#taskList li.task-overdue,
+#completedTaskList li.task-overdue {
+    background-color: #fca5a5;
+    border-left: 5px solid #ef4444;
+}
+
+#taskList li.task-soon,
+#completedTaskList li.task-soon {
+    background-color: #fde68a;
+    border-left: 5px solid #f59e0b;
+}
+
+#taskList li.task-upcoming,
+#completedTaskList li.task-upcoming {
+    background-color: #bfdbfe;
+    border-left: 5px solid #3b82f6;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -475,4 +493,22 @@ body.dark #priorityInput {
     background-color: #111827;
     color: #f9fafb;
     border: 1px solid #374151;
+}
+
+body.dark #taskList li.task-overdue,
+body.dark #completedTaskList li.task-overdue {
+    background-color: #7f1d1d;
+    border-left: 5px solid #ef4444;
+}
+
+body.dark #taskList li.task-soon,
+body.dark #completedTaskList li.task-soon {
+    background-color: #78350f;
+    border-left: 5px solid #f59e0b;
+}
+
+body.dark #taskList li.task-upcoming,
+body.dark #completedTaskList li.task-upcoming {
+    background-color: #1e3a8a;
+    border-left: 5px solid #3b82f6;
 }
