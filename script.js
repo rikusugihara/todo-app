@@ -92,6 +92,19 @@ function renderTasks() {
             return a.completed - b.completed;
         }
 
+        const priorityOrder = {
+            high: 0,
+            medium: 1,
+            low: 2
+        };
+
+        const aPriority = priorityOrder[a.priority] ?? 1;
+        const bPriority = priorityOrder[b.priority] ?? 1;
+
+        if(aPriority !== bPriority) {
+            return aPriority - bPriority;
+        }
+
         if(!a.dueDate && !b.dueDate) return 0;
         if(!a.dueDate) return 1;
         if(!b.dueDate) return -1;
@@ -225,7 +238,7 @@ function renderTasks() {
         li.appendChild(checkbox);
         textWrap.appendChild(span);
 
-        const dueDateElement = createDueDateElement(task);
+        const priorityElement = createPriorityElement(task);
         textWrap.appendChild(priorityElement);
 
         const dueDateElement = createDueDateElement(task);
@@ -235,7 +248,6 @@ function renderTasks() {
         }
 
         li.appendChild(textWrap);
-
         li.appendChild(deleteBtn);
 
         if(task.completed) {

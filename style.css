@@ -242,7 +242,7 @@ button:active {
 
 .task-section {
     margin-top: 8px;
-    animation: taskPopIn 0.28s ease;
+    animation: fadeInUp 0.28s ease;
 }
 
 .bottom-actions {
