@@ -1,38 +1,72 @@
 # Todo App
 
 JavaScriptで作成したシンプルなTodoアプリです。
+タスクの追加・編集・削除・期限管理などを行うことができます。
 
-## 機能
+---
+
+## Demo
+
+https://rikusugihara.github.io/todo-app/
+
+---
+
+## Screenshot
+
+![Todo App](image/screenshot.png)
+
+---
+
+## Features
 
 ・タスク追加
 ・タスク編集
 ・タスク削除
 ・完了チェック
+
 ・期限設定
 ・優先度設定
+
 ・タスク検索
 ・タスクフィルター（すべて/未完了/完了）
+
 ・ドラッグ&ドロップ並び替え
+
 ・ダークモード
+
 ・タスク統計表示
+
 ・localStorage保存
 
-## 使用技術
+---
+
+## Tech Stack
 
 - HTML
 - CSS
 - JavaScript
 - localStorage
 
-## 使い方
+---
+
+## Usage
 
 1. タスクを入力して追加
 2. チェックを入れると完了
 3. フィルターで表示切り替え
 4. ドラッグで並び替え
 
-## 今後追加予定
+---
 
-・期限通知
+## Future Improvements
+
+・期限通知機能
 ・カテゴリ機能
-・デザイン改善
+・レスポンシブデザイン改善
+
+---
+
+## Author
+
+GitHub
+https://github.com/rikusugihara
