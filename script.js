@@ -60,7 +60,17 @@ function createDueDateElement(task) {
 }
 
 function renderTasks() {
-    tasks.sort((a, b) => a.completed - b.completed);
+    tasks.sort((a, b) => {
+        if(a.completed !== b.completed) {
+            return a.completed - b.completed;
+        }
+
+        if(!a.dueDate && !b.dueDate) return 0;
+        if(!a.dueDate) return 1;
+        if(!b.dueDate) return -1;
+
+        return new Date(a.dueDate) - new Date(b.dueDate);
+    });
 
     updateFilterButtons();
 
