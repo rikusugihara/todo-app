@@ -1,5 +1,6 @@
 const taskInput = document.getElementById("taskInput");
 const dueDateInput = document.getElementById("dueDateInput");
+const priorityInput = document.getElementById("priorityInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
 const completedTaskList = document.getElementById("completedTaskList");
@@ -65,6 +66,24 @@ function createDueDateElement(task) {
     }
 
     return dueDateText;
+}
+
+function createPriorityElement(task) {
+    const priorityText = document.createElement("small");
+    priorityText.classList.add("task-priority");
+
+    if(task.priority === "high") {
+        priorityText.textContent = "🔴 高";
+        priorityText.classList.add("high-priority");
+    } else if(task.priority === "medium") {
+        priorityText.textContent = "🟡 中";
+        priorityText.classList.add("medium-priority");
+    } else {
+        priorityText.textContent = "○ 低";
+        priorityText.classList.add("low-priority");
+    }
+
+    return priorityText;
 }
 
 function renderTasks() {
@@ -207,6 +226,9 @@ function renderTasks() {
         textWrap.appendChild(span);
 
         const dueDateElement = createDueDateElement(task);
+        textWrap.appendChild(priorityElement);
+
+        const dueDateElement = createDueDateElement(task);
 
         if(dueDateElement) {
             textWrap.appendChild(dueDateElement);
@@ -256,7 +278,8 @@ function addTask() {
     tasks.push({
         text: taskText,
         completed: false,
-        dueDate: dueDateInput.value
+        dueDate: dueDateInput.value,
+        priority: priorityInput.value
     });
 
     saveTasks();
@@ -264,6 +287,7 @@ function addTask() {
 
     taskInput.value = "";
     dueDateInput.value = "";
+    priorityInput.value = "medium";
 }
 
 function saveTheme() {

@@ -395,6 +395,34 @@ button:active {
     color: #3b82f6;
 }
 
+.task-priority {
+    font-size: 12px;
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+.high-priority {
+    color: #ef4444;
+}
+
+.medium-priority {
+    color: #f59e0b;
+}
+
+.low-priority {
+    color: #9ca3af;
+}
+
+#priorityInput {
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background-color: white;
+    color: #374151;
+    flex-shrink: 0;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -441,4 +469,10 @@ body.dark .modal-content {
 
 body.dark .sub-title {
     color: #cbd5e1;
+}
+
+body.dark #priorityInput {
+    background-color: #111827;
+    color: #f9fafb;
+    border: 1px solid #374151;
 }
