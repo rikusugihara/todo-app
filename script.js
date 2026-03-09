@@ -117,11 +117,20 @@ function renderTasks() {
             return aPriority - bPriority;
         }
 
-        if(!a.dueDate && !b.dueDate) return 0;
+        if(!a.dueDate && !b.dueDate) {
+            return a.createdAt - b.createdAt;
+        };
+
         if(!a.dueDate) return 1;
         if(!b.dueDate) return -1;
 
-        return new Date(a.dueDate) - new Date(b.dueDate);
+        const dateDiff = new Date(a.dueDate) - new Date(b.dueDate);
+
+        if(dateDiff !== 0) {
+            return dateDiff;
+        }
+
+        return a.createdAt - b.createdAt;
     });
 
     updateFilterButtons();
@@ -322,7 +331,8 @@ function addTask() {
         text: taskText,
         completed: false,
         dueDate: dueDateInput.value,
-        priority: priorityInput.value
+        priority: priorityInput.value,
+        createdAt: Date.now()
     });
 
     saveTasks();
@@ -366,7 +376,11 @@ function loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
 
     if(savedTasks) {
-        tasks = JSON.parse(savedTasks);
+        tasks = JSON.parse(savedTasks).map((task, index) => ({
+            ...task,
+            priority: task.priority ?? "medium",
+            createdAt: task.createdAt ?? (Date.now() + index)
+        }));
     }
 }
 
