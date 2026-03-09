@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDoアプリ</title>
+
+    <link rel="icon" href="image/favicon.ico" id="favicon">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon-180x180.png">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,6 +16,23 @@
             <h1>📝 ToDoアプリ</h1>
             <p class="sub-title">毎日のタスクをすっきり整理</p>
             <p id="taskCount">タスク 0件 | 未完了 0件</p>
+
+            <div class="stats-area">
+                <div class="stat-card">
+                    <p class="stat-label">総タスク</p>
+                    <p id="totalStat" class="stat-value">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <p class="stat-label">完了</p>
+                    <p id="completedStat" class="stat-value">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <p class="stat-label">完了率</p>
+                    <p id="completionRateStat" class="stat-value">0%</p>
+                </div>
+            </div>
         </header>
 
         <div class="input-area">

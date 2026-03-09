@@ -465,6 +465,35 @@ button:active {
     margin-top: 8px;
 }
 
+.stats-area {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.stat-label {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.stat-value {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -545,4 +574,18 @@ body.dark .edit-modal-content select {
     background-color: #111827;
     color: #f9fafb;
     border: 1px solid #374151;
+}
+
+body.dark .stat-card {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: none;
+}
+
+body.dark .stat-value {
+    color: #cbd5e1;
+}
+
+body.dark .stat-value {
+    color: #f9fafb;
 }

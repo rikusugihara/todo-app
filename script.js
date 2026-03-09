@@ -6,6 +6,10 @@ const taskList = document.getElementById("taskList");
 const completedTaskList = document.getElementById("completedTaskList");
 const taskCount = document.getElementById("taskCount");
 
+const totalStat = document.getElementById("totalStat");
+const completedStat = document.getElementById("completedStat");
+const completionRateStat = document.getElementById("completionRateStat");
+
 const emptyMessage = document.getElementById("emptyMessage");
 
 const modal = document.getElementById("modal");
@@ -137,6 +141,14 @@ function renderTasks() {
 
     const totalTasks = tasks.length;
     const incompleteTasks = tasks.filter(task => !task.completed).length;
+
+    const completedTasks = tasks.filter(task => task.completed).length;
+    const completionRate =
+        totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+    totalStat.textContent = totalTasks;
+    completedStat.textContent = completedTasks;
+    completionRateStat.textContent = `${completionRate}%`;
 
     taskCount.innerHTML = `タスク ${totalTasks}件 | 未完了 <b>${incompleteTasks}</b>件`;
     taskCount.classList.remove("count-update");
