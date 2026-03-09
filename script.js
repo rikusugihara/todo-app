@@ -41,6 +41,24 @@ function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function createDueDateElement(task) {
+    if(!task.dueDate) {
+        return null;
+    }
+
+    const dueDateText = document.createElement("small");
+    dueDateText.textContent = `期限: ${task.dueDate}`;
+    dueDateText.classList.add("task-due-date");
+
+    const today = new Date().toISOString().split("T")[0];
+
+    if(task.dueDate <= today && !task.completed) {
+        dueDateText.classList.add("overdue");
+    }
+
+    return dueDateText;
+}
+
 function renderTasks() {
     tasks.sort((a, b) => a.completed - b.completed);
 
@@ -169,18 +187,11 @@ function renderTasks() {
 
         li.appendChild(checkbox);
         textWrap.appendChild(span);
-        if(task.dueDate) {
-            const dueDateText = document.createElement("small");
-            dueDateText.textContent = `期限: ${task.dueDate}`;
-            dueDateText.classList.add("task-due-date");
 
-            const today = new Date().toISOString().split("T")[0];
+        const dueDateElement = createDueDateElement(task);
 
-            if(task.dueDate <= today && !task.completed) {
-                dueDateText.classList.add("overdue");
-            }
-
-            textWrap.appendChild(dueDateText);
+        if(dueDateElement) {
+            textWrap.appendChild(dueDateElement);
         }
 
         li.appendChild(textWrap);
