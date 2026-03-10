@@ -582,6 +582,16 @@ if("serviceWorker" in navigator) {
 let deferredPrompt;
 const installBtn = document.getElementById("installAppBtn");
 
+// ブラウザで開いているかアプリで開いているかの判定
+function isRunningAsPWA() {
+    return window.matchMedia("(display-mode: standalone)").matches;
+}
+
+// アプリで開いていたらボタンを消す
+if(isRunningAsPWA()) {
+    installBtn.style.display = "none";
+}
+
 // インストール可能になったとき
 window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault();
