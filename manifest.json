@@ -1,4 +1,5 @@
 {
+    "id": "/todo-app/",
     "name": "ToDoアプリ",
     "short_name": "ToDo",
     "description": "毎日のタスクをすっきり整理できるToDoアプリ",

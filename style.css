@@ -101,7 +101,7 @@ button:active {
     flex: 0.8;
 }
 
-input-area button {
+.input-area button {
     flex: 0.7;
 }
 
