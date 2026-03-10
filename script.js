@@ -574,3 +574,35 @@ if("serviceWorker" in navigator) {
             });
     });
 }
+
+
+// ======================================
+// PWA インストールボタン
+// ====================================== 
+let deferredPrompt;
+const installBtn = document.getElementById("installAppBtn");
+
+// インストール可能になったとき
+window.addEventListener("beforeInstallPrompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // ボタン表示
+    installBtn.style.display = "block";
+});
+
+// ボタンを押した時
+installBtn.addEventListener("click", async() => {
+    if(!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    const {outcome} = await deferredPrompt.userChoice;
+
+    if(putcome === "accepted") {
+        console.log("PWA installed");
+    }
+
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+});
