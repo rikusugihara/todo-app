@@ -589,3 +589,229 @@ body.dark .stat-value {
 body.dark .stat-value {
     color: #f9fafb;
 }
+
+
+/* ======================================
+Responsive Design
+====================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+select,
+button,
+input {
+    max-width: 100%;
+}
+
+/* タブレット以下 */
+@media(max-width: 768px) {
+    body {
+        padding: 24px 14px;
+    }
+
+    .container {
+        padding: 20px 16px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .sub-title {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+
+    #taskCount {
+        margin-bottom: 18px;
+        font-size: 14px;
+    }
+
+    /* 統計カードを3列→1列 */
+    .stats-area {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    /* 入力欄を縦並び */
+    .input-area {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .input-area input,
+    .input-area select,
+    .input-area button {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #priorityInput {
+        width: 100%;
+    }
+
+    .search-area {
+        margin-bottom: 18px;
+    }
+
+    .search-area input {
+        max-width: 100%;
+    }
+
+    /* フィルターを横3分割で収める */
+    .filter-area {
+        width: 100%;
+        gap: 0;
+        flex-wrap: nowrap;
+        margin: 18px 0;
+    }
+
+    .filter-btn {
+        flex: 1;
+        min-width: 0;
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+    /* リスト幅を画面に合わせる */
+    #taskList,
+    #completedTaskList,
+    .completed-header {
+        max-width: 100%;
+    }
+
+    /* タスク1件をスマホ向けに調整 */
+    #taskList li,
+    #completedTaskList li {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        align-items: flex-start;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    #taskList span,
+    #completedTaskList span {
+        font-size: 15px;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .task-text-wrap {
+        min-width: 0;
+    }
+
+    .delete-btn {
+        flex-shrink: 0;
+        padding: 10px 12px;
+        grid-column: 2;
+        justify-self: end;
+        margin-top: 4px;
+    }
+
+    .bottom-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .bottom-actions button {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 22px 16px;
+        border-radius: 16px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions button {
+        width: 100%;
+    }
+}
+
+/* 小さめスマホ */
+@media(max-width: 480px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        padding: 16px 12px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .sub-title {
+        font-size: 12px;
+    }
+
+    #taskCount {
+        font-size: 13px;
+    }
+
+    input,
+    #priorityInput {
+        font-size: 16px; /* iPhoneの自動ズーム対策 */
+        padding: 12px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .filter-btn {
+        height: 42px;
+        font-size: 12px;
+        padding: 0;
+    }
+
+    #taskList li,
+    #completedTaskList li {
+        padding: 10px;
+        gap: 8px;
+    }
+
+    #taskList input[type="checkbox"],
+    #completedTaskList input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin-top: 3px;
+    }
+
+    .task-due-date,
+    .task-priority {
+        font-size: 11px;
+    }
+
+    .completed-header {
+        font-size: 13px;
+        margin-top: 18px;
+    }
+
+    .empty-message {
+        font-size: 14px;
+        margin-top: 24px;
+    }
+}
