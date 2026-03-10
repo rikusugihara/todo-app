@@ -364,6 +364,18 @@ button:active {
     line-height: 1.6;
 }
 
+.offline-banner {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .count-update {
     animation: countFlash 0.25s ease;
 }
@@ -604,6 +616,12 @@ body.dark .stat-value {
 
 body.dark .stat-value {
     color: #f9fafb;
+}
+
+body.dark .offline-banner {
+    background-color: #3f2f0b;
+    color: #fcd34d;
+    border: 1px solid #b45309;
 }
 
 

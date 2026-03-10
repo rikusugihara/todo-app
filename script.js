@@ -2,6 +2,9 @@ const taskInput = document.getElementById("taskInput");
 const dueDateInput = document.getElementById("dueDateInput");
 const priorityInput = document.getElementById("priorityInput");
 const addBtn = document.getElementById("addBtn");
+
+const offlineBanner = document.getElementById("offlineBanner");
+
 const taskList = document.getElementById("taskList");
 const completedTaskList = document.getElementById("completedTaskList");
 const taskCount = document.getElementById("taskCount");
@@ -396,6 +399,14 @@ function loadTheme() {
     }
 }
 
+function updateOfflineBanner() {
+    if(navigator.onLine) {
+        offlineBanner.style.display = "none";
+    } else {
+        offlineBanner.style.display = "block";
+    }
+}
+
 function editTask(index) {
     const currentTask = tasks[index];
 
@@ -562,6 +573,11 @@ loadTasks();
 loadTheme();
 loadViewState();
 renderTasks();
+
+window.addEventListener("online", updateOfflineBanner);
+window.addEventListener("offline", updateOfflineBanner);
+
+updateOfflineBanner();
 
 if("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
