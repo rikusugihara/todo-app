@@ -432,6 +432,35 @@ function loadTasks() {
     }
 }
 
+// 通知許可を取るための専用関数（非同期処理のためasyncつける）
+async function requestNotificationPermission() {
+    // そもそもブラウザで通知機能が使えるかを確認
+    if(!("Notification" in window)) {
+        console.log("このブラウザは通知に対応していません");
+        return;
+    }
+
+    if(Notification.permission === "granted") {
+        console.log("すでに通知は許可されています");
+        return;
+    }
+
+    if(Notification.permission === "denied") {
+        console.log("通知はブロックされています");
+        return;
+    }
+
+    // ブラウザの通知許可ダイアログを表示
+    const permission = await Notification.requestPermission();
+
+    // 許可されたかどうかの確認
+    if(permission === "granted") {
+        console.log("通知が許可されました");
+    } else {
+        console.log("通知は許可されませんでした");
+    }
+}
+
 addBtn.addEventListener("click", addTask);
 
 taskInput.addEventListener("keypress", function(event) {
@@ -573,6 +602,7 @@ loadTasks();
 loadTheme();
 loadViewState();
 renderTasks();
+requestNotificationPermission();
 
 window.addEventListener("online", updateOfflineBanner);
 window.addEventListener("offline", updateOfflineBanner);
