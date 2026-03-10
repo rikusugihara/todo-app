@@ -580,10 +580,11 @@ if("serviceWorker" in navigator) {
 // PWA インストールボタン
 // ====================================== 
 let deferredPrompt;
-const installBtn = document.getElementById("installAppBtn");
 
 // インストール可能になったとき
 window.addEventListener("beforeInstallPrompt", (e) => {
+    const installBtn = document.getElementById("installAppBtn");
+    
     e.preventDefault();
     deferredPrompt = e;
 
