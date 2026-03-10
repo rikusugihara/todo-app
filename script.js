@@ -560,9 +560,19 @@ saveEditBtn.addEventListener("click", function() {
         return;
     }
 
+    const task = task[editingTaskIndex];
+
+    // 編集前の通知をいったん解除
+    cancelNotification(task);
+
     tasks[editingTaskIndex].text = newText;
     tasks[editingTaskIndex].dueDate = editDueDateInput.value || null;
     tasks[editingTaskIndex].priority = editPriorityInput.value;
+
+    // 未完了タスクだけ新しい条件で通知を再登録
+    if(!task.completed) {
+        scheduleNotification(task);
+    }
 
     saveTasks();
     renderTasks();
