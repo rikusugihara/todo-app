@@ -359,6 +359,31 @@ function saveTheme() {
     localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
 }
 
+function saveViewState() {
+    localStorage.setItem("currentFilter", currentFilter);
+    localStorage.setItem("currentSearch", currentSearch);
+    localStorage.setItem("showCompletedTasks", JSON.stringify(showCompletedTasks));
+}
+
+function loadViewState() {
+    const savedFilter = localStorage.getItem("currentFilter");
+    const savedSearch = localStorage.getItem("currentSearch");
+    const savedShowCompletedTasks = localStorage.getItem("showCompletedTasks");
+
+    if(savedFilter) {
+        currentFilter = savedFilter;
+    }
+
+    if(savedSearch) {
+        currentSearch = savedSearch;
+        searchInput.value = savedSearch;
+    }
+
+    if(savedShowCompletedTasks !== null) {
+        showCompletedTasks = JSON.parse(savedShowCompletedTasks)
+    }
+}
+
 function loadTheme() {
     const savedTheme = localStorage.getItem("darkMode");
 
@@ -454,6 +479,7 @@ editTaskInput.addEventListener("keypress", function(event) {
 
 completedSectionHeader.addEventListener("click", function() {
     showCompletedTasks = !showCompletedTasks;
+    saveViewState();
     renderTasks();
 });
 
@@ -489,21 +515,25 @@ toggleThemeBtn.addEventListener("click", function() {
 
 filterAllBtn.addEventListener("click", function() {
     currentFilter = "all";
+    saveViewState();
     renderTasks();
 });
 
 filterActiveBtn.addEventListener("click", function() {
     currentFilter = "active";
+    saveViewState();
     renderTasks();
 });
 
 filterCompletedBtn.addEventListener("click", function() {
     currentFilter = "completed";
+    saveViewState();
     renderTasks();
 });
 
 searchInput.addEventListener("input", function() {
     currentSearch = searchInput.value.trim();
+    saveViewState();
     renderTasks();
 });
 
@@ -530,4 +560,5 @@ function updateFilterButtons() {
 
 loadTasks();
 loadTheme();
+loadViewState();
 renderTasks();
