@@ -335,57 +335,6 @@ function renderTasks() {
     }
 }
 
-function scheduleNotification(task) {
-    // 期限がないタスクは通知しない
-    if(!task.dueDate) return;
-
-    const dueTime = new Date(task.dueDate).getTime();
-    const now = Date.now();
-
-    // 1時間前に通知
-    const notifyTime = dueTime - (60 * 60 * 1000);
-
-    const delay = notifyTime - now;
-
-    // すでに時間を過ぎていたら通知しない
-    if(delay <= 0) return;
-
-    setTimeout(() => {
-        if(Notification.permission === "granted") {
-            new Notification("タスクの期限が近いです", {
-                body: task.text,
-                icon: "./image/icon-192.png"
-            });
-        }
-    }, delay);
-}
-
-function addTask() {
-    const taskText = taskInput.value.trim();
-
-    if (taskText === "") {
-        return;
-    }
-
-    tasks.push({
-        text: taskText,
-        completed: false,
-        dueDate: dueDateInput.value,
-        priority: priorityInput.value,
-        createdAt: Date.now()
-    });
-
-    // 通知を予約
-    scheduleNotification(task[task.length - 1]);
-
-    saveTasks();
-    renderTasks();
-
-    taskInput.value = "";
-    dueDateInput.value = "";
-    priorityInput.value = "medium";
-}
-
 function saveTheme() {
     localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
 }
@@ -487,6 +436,65 @@ async function requestNotificationPermission() {
     } else {
         console.log("通知は許可されませんでした");
     }
+}
+
+function scheduleNotification(task) {
+    // 期限がないタスクは通知しない
+    if(!task.dueDate) return;
+
+    const dueTime = new Date(task.dueDate).getTime();
+    const now = Date.now();
+
+    // 1時間前に通知
+    const notifyTime = dueTime - (60 * 60 * 1000);
+
+    const delay = notifyTime - now;
+
+    // すでに時間を過ぎていたら通知しない
+    if(delay <= 0) return;
+
+    setTimeout(() => {
+        if(Notification.permission === "granted") {
+            new Notification("タスクの期限が近いです", {
+                body: task.text,
+                icon: "./image/icon-192.png"
+            });
+        }
+    }, delay);
+}
+
+function restoreNotifications() {
+    tasks.forEach(task => {
+        if(!task.completed) {
+            scheduleNotification(task);
+        }
+    });
+}
+
+function addTask() {
+    const taskText = taskInput.value.trim();
+
+    if (taskText === "") {
+        return;
+    }
+
+    tasks.push({
+        text: taskText,
+        completed: false,
+        dueDate: dueDateInput.value,
+        priority: priorityInput.value,
+        createdAt: Date.now()
+    });
+
+    // 通知を予約
+    scheduleNotification(task[task.length - 1]);
+
+    saveTasks();
+    renderTasks();
+
+    taskInput.value = "";
+    dueDateInput.value = "";
+    priorityInput.value = "medium";
 }
 
 addBtn.addEventListener("click", addTask);
@@ -631,6 +639,7 @@ loadTheme();
 loadViewState();
 renderTasks();
 requestNotificationPermission();
+restoreNotifications();
 
 window.addEventListener("online", updateOfflineBanner);
 window.addEventListener("offline", updateOfflineBanner);
