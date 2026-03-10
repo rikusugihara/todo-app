@@ -335,6 +335,31 @@ function renderTasks() {
     }
 }
 
+function scheduleNotification(task) {
+    // 期限がないタスクは通知しない
+    if(!task.dueDate) return;
+
+    const dueTime = new Date(task.dueDate).getTime();
+    const now = Date.now();
+
+    // 1時間前に通知
+    const notifyTime = dueTime - (60 * 60 * 1000);
+
+    const delay = notifyTime - now;
+
+    // すでに時間を過ぎていたら通知しない
+    if(delay <= 0) return;
+
+    setTimeout(() => {
+        if(Notification.permission === "granted") {
+            new Notification("タスクの期限が近いです", {
+                body: task.text,
+                icon: "./image/icon-192.png"
+            });
+        }
+    }, delay);
+}
+
 function addTask() {
     const taskText = taskInput.value.trim();
 
@@ -349,6 +374,9 @@ function addTask() {
         priority: priorityInput.value,
         createdAt: Date.now()
     });
+
+    // 通知を予約
+    scheduleNotification(task[task.length - 1]);
 
     saveTasks();
     renderTasks();
