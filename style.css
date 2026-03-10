@@ -93,8 +93,9 @@ button:active {
     flex: 1.6;
 }
 
-#dueDateInput {
-    flex: 1;
+#dueDateInput,
+#editDueDateInput {
+    flex: 1.2;
 }
 
 #priorityInput {

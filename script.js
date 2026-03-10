@@ -66,27 +66,37 @@ function createDueDateElement(task) {
     }
 
     const dueDateText = document.createElement("small");
-    dueDateText.textContent = `期限: ${task.dueDate}`;
+    dueDateText.textContent = `期限: ${formatDueDate(task.dueDate)}`;
     dueDateText.classList.add("task-due-date");
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
+    const now = new Date();
     const dueDate = new Date(task.dueDate);
-    today.setHours(0, 0, 0, 0);
+    const diffTime = dueDate - now;
+    const diffHours = diffTime / (1000 * 60 * 60);
 
-    const diffTime = dueDate - today;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    if(diffDays < 0 && !task.completed) {
+    if(diffTime < 0 && !task.completed) {
         dueDateText.classList.add("overdue");
-    } else if(diffDays <= 2) {
+    } else if(diffHours <= 24) {
         dueDateText.classList.add("soon");
-    } else if(diffDays <= 7) {
+    } else if(diffHours <= 24 * 7) {
         dueDateText.classList.add("upcoming");
     }
 
     return dueDateText;
+}
+
+function formatDueDate(dateString) {
+    if(!dateString) return "";
+
+    const date = new Date(dateString);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}/${month}/${day} ${hours}:${minutes}`;
 }
 
 function createPriorityElement(task) {
@@ -194,20 +204,16 @@ function renderTasks() {
         li.classList.add("task-enter");
 
         if(task.dueDate && !task.completed) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
+            const now = new Date();
             const dueDate = new Date(task.dueDate);
-            today.setHours(0, 0, 0, 0);
+            const diffTime = dueDate - now;
+            const diffHours = diffTime / (1000 * 60 * 60);
 
-            const diffTime = dueDate - today;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            if(diffDays < 0) {
+            if(diffTime < 0) {
                 li.classList.add("task-overdue");
-            } else if(diffDays <= 2) {
+            } else if(diffHours <= 24) {
                 li.classList.add("task-soon");
-            } else if(diffDays <= 7) {
+            } else if(diffHours <= 24 * 7) {
                 li.classList.add("task-upcoming");
             }
         }
