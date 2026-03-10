@@ -40,6 +40,8 @@ const searchInput = document.getElementById("searchInput");
 
 let tasks = [];
 
+let NotificationTimers = {};
+
 let currentModalTaskIndex = null;
 
 let showCompletedTasks = true;
@@ -280,11 +282,19 @@ function renderTasks() {
 
         checkbox.addEventListener("change", function() {
             tasks[index].completed = checkbox.checked;
+
+            if(tasks[index].completed) {
+                cancelNotification(tasks[index]);
+            } else {
+                scheduleNotification(tasks[index]);
+            }
+
             saveTasks();
             renderTasks();
         });
 
         deleteBtn.addEventListener("click", function() {
+            cancelNotification(tasks[index]);
             tasks.splice(index, 1);
             saveTasks();
             renderTasks();
@@ -441,26 +451,46 @@ async function requestNotificationPermission() {
 function scheduleNotification(task) {
     // 期限がないタスクは通知しない
     if(!task.dueDate) return;
+    if(task.completed) return;
+
+    const taskId = task.createdAt;
+
+    // すでに同じタスクの通知予約があれば一度消す
+    if(NotificationTimers[taskId]) {
+        clearTimeout(NotificationTimers[taskId]);
+    }
 
     const dueTime = new Date(task.dueDate).getTime();
     const now = Date.now();
 
     // 1時間前に通知
     const notifyTime = dueTime - (60 * 60 * 1000);
-
     const delay = notifyTime - now;
 
     // すでに時間を過ぎていたら通知しない
     if(delay <= 0) return;
 
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
         if(Notification.permission === "granted") {
             new Notification("タスクの期限が近いです", {
                 body: task.text,
                 icon: "./image/icon-192.png"
             });
         }
+
+        delete NotificationTimers[taskId];
     }, delay);
+
+    NotificationTimers[taskId] = timerId;
+}
+
+function cancelNotification(task) {
+    const taskId = task.createdAt;
+
+    if(NotificationTimers[taskId]) {
+        clearTimeout(NotificationTimers[taskId]);
+        delete NotificationTimers[taskId];
+    }
 }
 
 function restoreNotifications() {
@@ -566,7 +596,14 @@ deleteCompletedBtn.addEventListener("click", function() {
         return;
     }
 
+    tasks.forEach(task => {
+        if(task.completed) {
+            cancelNotification(task);
+        }
+    });
+
     tasks = tasks.filter(task => !task.completed);
+
     saveTasks();
     renderTasks();
 });
@@ -578,7 +615,12 @@ deleteAllBtn.addEventListener("click", function() {
         return;
     }
 
+    tasks.forEach(task => {
+        cancelNotification(task);
+    });
+
     tasks = [];
+
     saveTasks();
     renderTasks();
 });
