@@ -1,0 +1,21 @@
+{
+    "name": "ToDoアプリ",
+    "short_name": "ToDo",
+    "description": "毎日のタスクをすっきり整理できるToDoアプリ",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background-color": "#eef2ff",
+    "theme_color": "#4f46e5",
+    "icons": [
+        {
+            "src": "image/icon-192.png",
+            "size": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "image/icon-512.png",
+            "size": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
