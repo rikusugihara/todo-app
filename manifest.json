@@ -4,7 +4,7 @@
     "description": "毎日のタスクをすっきり整理できるToDoアプリ",
     "start_url": "./index.html",
     "display": "standalone",
-    "background-color": "#eef2ff",
+    "background_color": "#eef2ff",
     "theme_color": "#4f46e5",
     "icons": [
         {
