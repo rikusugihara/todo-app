@@ -1,76 +1,75 @@
-# Todo App
+# 📝 Todo App
 
-JavaScriptで作成したシンプルなTodoアプリです。
-タスクの追加・編集・削除・期限管理などを行うことができます。
+毎日のタスクを整理できるシンプルなToDoアプリです。
+ブラウザだけで動作し、PWAとしてインストールすることもできます。
 
 ---
 
-## Demo
+## デモ
 
 https://rikusugihara.github.io/todo-app/
 
 ---
 
-## Screenshot
+## スクリーンショット
 
 ### Light Mode
-![Todo App](image/screenshot-light.png)
+![Todo App](images/screenshot-light.png)
 
 ### Dark Mode
-![Todo App](image/screenshot-dark.png)
+![Todo App](images/screenshot-dark.png)
 
 ---
 
-## Features
+## 主な機能
 
-・タスク追加
-・タスク編集
-・タスク削除
-・完了チェック
-
-・期限設定
-・優先度設定
-
-・タスク検索
-・タスクフィルター（すべて/未完了/完了）
-
-・ドラッグ&ドロップ並び替え
-
-・ダークモード
-
-・タスク統計表示
-
-・localStorage保存
+- タスク追加　/ 削除
+- 完了チェック
+- タスク検索
+- フィルター（すべて / 未完了 / 完了）
+- 優先度設定
+- 統計表示
+- ドラッグ＆ドロップ並び替え
+- ダークモード
+- レスポンシブデザイン
+- PWA対応（インストール可能）
+- オフライン対応
 
 ---
 
-## Tech Stack
+## 使用技術
 
 - HTML
 - CSS
-- JavaScript
+- JavaScript（Vanilla JS）
 - localStorage
+- Service Worker
+- GitHub Pages
 
 ---
 
-## Usage
+## PWA対応
 
-1. タスクを入力して追加
-2. チェックを入れると完了
-3. フィルターで表示切り替え
-4. ドラッグで並び替え
+このアプリはPWAとしてインストールできます。
 
----
+Chromeの場合：
 
-## Future Improvements
-
-・期限通知機能
-・カテゴリ機能
-・レスポンシブデザイン改善
+1. サイトを開く
+2. 「アプリをインストール」ボタンを押す
+3. アプリとして起動できます
 
 ---
 
-## Author
+## 今後の改善予定
+
+- タスクのカテゴリ機能
+- タスクの通知機能
+- UIアニメーションの追加
+- データエクスポート機能
+
+---
+
+## 作者
 
 GitHub
 https://github.com/rikusugihara
