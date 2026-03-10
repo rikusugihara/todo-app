@@ -523,6 +523,17 @@ button:active {
     color: #111827;
 }
 
+#notifyBeforeInput,
+#editNotifyBeforeInput {
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background-color: white;
+    color: #374151;
+    flex-shrink: 0;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -623,6 +634,13 @@ body.dark .offline-banner {
     background-color: #3f2f0b;
     color: #fcd34d;
     border: 1px solid #b45309;
+}
+
+body.dark #notifyBeforeInput,
+body.dark #editNotifyBeforeInput {
+    background-color: #111827;
+    color: #f9fafb;
+    border: 1px solid #374151;
 }
 
 

@@ -1,6 +1,7 @@
 const taskInput = document.getElementById("taskInput");
 const dueDateInput = document.getElementById("dueDateInput");
 const priorityInput = document.getElementById("priorityInput");
+const notifyBeforeInput = document.getElementById("notifyBeforeInput");
 const addBtn = document.getElementById("addBtn");
 
 const offlineBanner = document.getElementById("offlineBanner");
@@ -24,6 +25,7 @@ const editModal = document.getElementById("editModal");
 const editTaskInput = document.getElementById("editTaskInput");
 const editDueDateInput = document.getElementById("editDueDateInput");
 const editPriorityInput = document.getElementById("editPriorityInput");
+const editNotifyBeforeInput = document.getElementById("editNotifyBeforeInput");
 const saveEditBtn = document.getElementById("saveEditBtn");
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 
@@ -318,6 +320,13 @@ function renderTasks() {
             textWrap.appendChild(dueDateElement);
         }
 
+        const notifyElement = document.createElement("small");
+
+        notifyElement.classList.add("task-due-date");
+        notifyElement.textContent = `通知: ${task.notifyBefore ?? 60}分前`;
+
+        textWrap.appendChild(notifyElement);
+
         li.appendChild(textWrap);
         li.appendChild(deleteBtn);
 
@@ -408,6 +417,7 @@ function editTask(index) {
     editTaskInput.value = currentTask.text;
     editDueDateInput.value = currentTask.dueDate || "";
     editPriorityInput.value = currentTask.priority || "medium";
+    editNotifyBeforeInput.value = String(currentTask.notifyBefore ?? 60);
 
     editModal.classList.add("show");
     editTaskInput.focus();
@@ -420,6 +430,7 @@ function loadTasks() {
         tasks = JSON.parse(savedTasks).map((task, index) => ({
             ...task,
             priority: task.priority ?? "medium",
+            notifyBefore: task.notifyBefore ?? 60,
             createdAt: task.createdAt ?? (Date.now() + index)
         }));
     }
@@ -469,17 +480,17 @@ function scheduleNotification(task) {
     const dueTime = new Date(task.dueDate).getTime();
     const now = Date.now();
 
-    // 1時間前に通知
-    const notifyTime = dueTime - (60 * 60 * 1000);
+    const notifyBeforeMinutes = Number(task.notifyBefore ?? 60);
+    const notifyTime = dueTime - (notifyBeforeMinutes * 60 * 1000);
     const delay = notifyTime - now;
 
     // すでに時間を過ぎていたら通知しない
     if(delay <= 0) return;
 
     const timerId = setTimeout(() => {
-        if(Notification.permission === "granted") {
+        if(Notification.permission === "granted" && !task.completed) {
             new Notification("タスクの期限が近いです", {
-                body: task.text,
+                body: `${task.text} (${notifyBeforeMinutes}分前通知)`,
                 icon: "./image/icon-192.png"
             });
         }
@@ -519,6 +530,7 @@ function addTask() {
         completed: false,
         dueDate: dueDateInput.value,
         priority: priorityInput.value,
+        notifyBefore: Number(notifyBeforeInput.value),
         createdAt: Date.now()
     });
 
@@ -531,6 +543,7 @@ function addTask() {
     taskInput.value = "";
     dueDateInput.value = "";
     priorityInput.value = "medium";
+    notifyBeforeInput.value = "60";
 }
 
 addBtn.addEventListener("click", addTask);
@@ -571,9 +584,10 @@ saveEditBtn.addEventListener("click", function() {
     // 編集前の通知をいったん解除
     cancelNotification(task);
 
-    tasks[editingTaskIndex].text = newText;
-    tasks[editingTaskIndex].dueDate = editDueDateInput.value || null;
-    tasks[editingTaskIndex].priority = editPriorityInput.value;
+    task.text = newText;
+    task.dueDate = editDueDateInput.value || null;
+    task.priority = editPriorityInput.value;
+    task.notifyBefore = Number(editNotifyBeforeInput.value);
 
     // 未完了タスクだけ新しい条件で通知を再登録
     if(!task.completed) {
