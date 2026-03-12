@@ -96,17 +96,7 @@ button:active {
     flex: 2;
 }
 
-.due-date-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1.4;
-    min-width: 0;
-}
-
-.due-date-group #dueDateInput {
-    width: 100%;
-}
-
+#dueDateInput,
 #editDueDateInput {
     flex: 1.2;
 }
@@ -770,10 +760,6 @@ input {
     .input-area button {
         width: 100%;
         max-width: 100%;
-    }
-
-    .due-date-group {
-        width: 100%;
     }
 
     #priorityInput {
