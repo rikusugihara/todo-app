@@ -93,13 +93,13 @@ button:active {
 }
 
 .input-area input[type="text"] {
-    flex: 1.6;
+    flex: 2;
 }
 
 .due-date-group {
     display: flex;
     flex-direction: column;
-    flex: 1.2;
+    flex: 1.4;
     min-width: 0;
 }
 
