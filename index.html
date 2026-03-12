@@ -48,18 +48,24 @@
 
         <div class="input-area">
             <input id="taskInput" type="text" placeholder="タスクを入力">
-            <label for="dueDateInput" class="input-label">期限（日時）</label>
-            <input type="datetime-local" id="dueDateInput">
+
+            <div class="due-date-group">
+                <label for="dueDateInput" class="input-label">期限（日時）</label>
+                <input type="datetime-local" id="dueDateInput">
+            </div>
+            
             <select id="priorityInput">
                 <option value="high">高</option>
                 <option value="medium" selected>中</option>
                 <option value="low">低</option>
             </select>
+
             <select id="notifyBeforeInput">
                 <option value="5">5分前</option>
                 <option value="30">30分前</option>
                 <option value="60" selected>1時間前</option>
             </select>
+            
             <button id="addBtn" class="primary-btn">追加</button>
         </div>
 

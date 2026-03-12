@@ -96,7 +96,17 @@ button:active {
     flex: 1.6;
 }
 
-#dueDateInput,
+.due-date-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1.2;
+    min-width: 0;
+}
+
+.due-date-group #dueDateInput {
+    width: 100%;
+}
+
 #editDueDateInput {
     flex: 1.2;
 }
@@ -555,11 +565,10 @@ button:active {
 
 .input-label {
     display: block;
-    width: 100%;
     font-size: 13px;
     font-weight: 600;
     color: #6b7280;
-    margin: 2px 0 -2px;
+    margin: 0 0 6px;
 }
 
 /* ダークモード */
@@ -761,6 +770,10 @@ input {
     .input-area button {
         width: 100%;
         max-width: 100%;
+    }
+
+    .due-date-group {
+        width: 100%;
     }
 
     #priorityInput {
