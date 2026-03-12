@@ -553,6 +553,15 @@ button:active {
     line-height: 1.7;
 }
 
+.input-label {
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    margin: 2px 0 -2px;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -678,6 +687,10 @@ body.dark .today-summary {
 
 body.dark .today-summary p {
     color: #f9fafb;
+}
+
+body.dark .input-label {
+    color: #cbd5e1;
 }
 
 
