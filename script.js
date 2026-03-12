@@ -567,7 +567,7 @@ function addTask() {
     });
 
     // 通知を予約
-    scheduleNotification(task[task.length - 1]);
+    scheduleNotification(tasks[tasks.length - 1]);
 
     saveTasks();
     renderTasks();
@@ -611,7 +611,7 @@ saveEditBtn.addEventListener("click", function() {
         return;
     }
 
-    const task = task[editingTaskIndex];
+    const task = tasks[editingTaskIndex];
 
     // 編集前の通知をいったん解除
     cancelNotification(task);
