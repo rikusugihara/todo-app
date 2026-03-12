@@ -743,6 +743,10 @@ input {
         width: 100%;
     }
 
+    #searchInput {
+        height: 48px;
+    }
+
     .search-area {
         margin-bottom: 18px;
     }
