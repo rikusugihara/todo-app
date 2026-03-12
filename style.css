@@ -534,6 +534,22 @@ button:active {
     flex-shrink: 0;
 }
 
+.today-summary {
+    background-color: white;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.today-summary p {
+    margin: 0;
+    color: #374151;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
 /* ダークモード */
 body.dark {
     background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
@@ -641,6 +657,16 @@ body.dark #editNotifyBeforeInput {
     background-color: #111827;
     color: #f9fafb;
     border: 1px solid #374151;
+}
+
+body.dark .today-summary {
+    background-color: #1f2937;
+    border-color: #374151;
+    box-shadow: none;
+}
+
+body.dark .today-summary p {
+    color: #f9fafb;
 }
 
 

@@ -14,6 +14,9 @@ const totalStat = document.getElementById("totalStat");
 const completedStat = document.getElementById("completedStat");
 const completionRateStat = document.getElementById("completionRateStat");
 
+const todayTaskText = document.getElementById("todayTaskText");
+const todayProgressText = document.getElementById("todayProgressText");
+
 const emptyMessage = document.getElementById("emptyMessage");
 
 const modal = document.getElementById("modal");
@@ -119,6 +122,33 @@ function createPriorityElement(task) {
     return priorityText;
 }
 
+function updateTodaySummary() {
+    const today = new Date();
+
+    const todayTasks = tasks.filter(task => {
+        if(!task.dueDate) return false;
+
+        const dueDate = new Date(task.dueDate);
+
+        return (
+            dueDate.getFullYear() === today.getFullYear() &&
+            dueDate.getMonth() === today.getMonth() &&
+            dueDate.getDate() === today.getDate()
+        );
+    });
+
+    const todayIncompleteTasks = todayTasks.filter(task => !task.completed);
+    const todayCompletedTasks = todayTasks.filter(task => task.completed);
+
+    const progress = 
+        todayTasks.length === 0
+            ? 0
+            : Math.round((todayCompletedTasks.length / todayTasks.length) * 100);
+
+    todayTaskText.textContent = `今日のタスク ${todayIncompleteTasks.length}件`;
+    todayProgressText.textContent = `今日の完了率 ${progress}%`;
+}
+
 function renderTasks() {
     tasks.sort((a, b) => {
         if(a.completed !== b.completed) {
@@ -166,6 +196,8 @@ function renderTasks() {
     totalStat.textContent = totalTasks;
     completedStat.textContent = completedTasks;
     completionRateStat.textContent = `${completionRate}%`;
+
+    updateTodaySummary();
 
     taskCount.innerHTML = `タスク ${totalTasks}件 | 未完了 <b>${incompleteTasks}</b>件`;
     taskCount.classList.remove("count-update");
